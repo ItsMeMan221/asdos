@@ -1,0 +1,79 @@
+<?php
+/* 
+Best Practice on Handling form
+*/
+function secureForm($str)
+{
+    $str = trim($str);
+    $str = stripslashes($str);
+    $str = htmlspecialchars($str);
+
+    return $str;
+}
+
+$email = $password = "";
+$emailErr = $passwordErr = "";
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['submit'])) {
+        if (empty($_POST['email'])) {
+            $emailErr = "Masukkan email anda!";
+        } else {
+            $email = secureForm($_POST['email']);
+            if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+                $emailErr = "Format email belum benar";
+            } else {
+                $emailErr = "";
+            }
+        }
+        if (empty($_POST['password'])) {
+            $passwordErr  = "Masukkan password anda!";
+        } else {
+            $password = secureForm($_POST['password']);
+            $passwordErr = "";
+        }
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<style>
+    .error {
+        color: red;
+        font-size: 12px;
+    }
+</style>
+<?php
+$head = 'FORM COMPLETE';
+include './framework/bootstrap.php'
+?>
+
+<body>
+    <h1 class="text-center mt-2">FORM COMPLETE</h1>
+    <form method="POST" action="" class="container">
+        <div class="row mb-3 mt-5">
+            <label for="email" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" id="email" placeholder="Input your email" name="email" value="<?= $email ?>">
+            </div>
+            <div class="col-sm-3">
+                <span class="error"><?= $emailErr ?></span>
+            </div>
+        </div>
+        <div class="row mb-3 mt-4">
+            <label for="password" class="col-sm-2 col-form-label">Password</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" id="password" placeholder="Input your password" name="password" value="<?= $password ?>">
+            </div>
+            <div class="col-sm-3">
+                <span class="error"><?= $passwordErr ?></span>
+            </div>
+        </div>
+        <div class="row mb-3 mt-3">
+            <input type="submit" class="col mx-5 mt-4" name="submit">
+        </div>
+    </form>
+</body>
+
+</html>
