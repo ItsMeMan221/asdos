@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
         if (empty($_POST['password'])) {
-            $passwordErr  = "Masukkan password anda!";
+            $passwordErr = "Masukkan password anda!";
         } else {
             $password = secureForm($_POST['password']);
             $passwordErr = "";
@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <?php
 $head = 'FORM COMPLETE';
 include './framework/bootstrap.php'
-?>
+    ?>
 
 <body>
     <h1 class="text-center mt-2">FORM COMPLETE</h1>
@@ -55,23 +55,29 @@ include './framework/bootstrap.php'
         <div class="row mb-3 mt-5">
             <label for="email" class="col-sm-2 col-form-label">Email</label>
             <div class="col-sm-7">
-                <input type="text" class="form-control" id="email" placeholder="Input your email" name="email" value="<?= $email ?>">
+                <input type="text" class="form-control" id="email" placeholder="Input your email" name="email"
+                    value="<?= $email ?>">
             </div>
             <div class="col-sm-3">
-                <span class="error"><?= $emailErr ?></span>
+                <span class="error">
+                    <?= $emailErr ?>
+                </span>
             </div>
         </div>
         <div class="row mb-3 mt-4">
             <label for="password" class="col-sm-2 col-form-label">Password</label>
             <div class="col-sm-7">
-                <input type="text" class="form-control" id="password" placeholder="Input your password" name="password" value="<?= $password ?>">
+                <input type="text" class="form-control" id="password" placeholder="Input your password" name="password"
+                    value="<?= $password ?>">
             </div>
             <div class="col-sm-3">
-                <span class="error"><?= $passwordErr ?></span>
+                <span class="error">
+                    <?= $passwordErr ?>
+                </span>
             </div>
         </div>
         <div class="row mb-3 mt-3">
-            <input type="submit" class="col mx-5 mt-4" name="submit">
+            <input type="submit" class="col mx-5 mt-4 btn btn-primary" name="submit">
         </div>
     </form>
 </body>

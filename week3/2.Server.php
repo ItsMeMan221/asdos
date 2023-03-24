@@ -11,6 +11,7 @@ $servers['nama_server'] = $_SERVER['SERVER_NAME'];
 $servers['user_agent_http'] = $_SERVER['HTTP_USER_AGENT'];
 $servers['ip_addr']  = $_SERVER['SERVER_ADDR'];
 $servers['metode_request'] = $_SERVER['REQUEST_METHOD'];
+$servers['port_server'] = $_SERVER['SERVER_PORT'];
 
 foreach ($servers as $server => $server_value) {
     echo $server . ": " . $server_value;

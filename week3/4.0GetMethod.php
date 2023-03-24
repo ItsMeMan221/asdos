@@ -8,7 +8,7 @@
 <?php
 $head = 'POST METHOD | GET METHOD';
 include './framework/bootstrap.php'
-?>
+    ?>
 
 <body>
     <h1 class="text-center mt-2">GET</h1>
@@ -26,7 +26,7 @@ include './framework/bootstrap.php'
             </div>
         </div>
         <div class="row mb-3 mt-3">
-            <input type="submit" class="col mx-5 mt-4" name="submit">
+            <input type="submit" class="col mx-5 mt-4 btn btn-primary" name="submit">
         </div>
     </form>
 </body>
