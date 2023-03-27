@@ -18,8 +18,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (empty($_POST['email'])) {
             $emailErr = "Masukkan email anda!";
         } else {
+            // var_dump($_POST['email']);
+            // echo "<br>";
+            // var_dump(secureForm($_POST['email']));
+            // exit();
             $email = secureForm($_POST['email']);
-            if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $emailErr = "Format email belum benar";
             } else {
                 $emailErr = "";
