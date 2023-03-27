@@ -12,6 +12,7 @@ function secureForm($str)
 }
 
 $email = $password = "";
+$passRegex = '';
 $emailErr = $passwordErr = "";
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['submit'])) {
@@ -24,6 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // exit();
             $email = secureForm($_POST['email']);
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $email = "";
                 $emailErr = "Format email belum benar";
             } else {
                 $emailErr = "";
@@ -33,7 +35,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $passwordErr = "Masukkan password anda!";
         } else {
             $password = secureForm($_POST['password']);
-            $passwordErr = "";
+            if  (!preg_match('/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).+$/', $password)) {
+                $password = "";
+                $passwordErr = "Password harus mengandung 1 Uppercase letter, 1 lowercase letter dan 1 angka";
+            }
+            else {
+                $passwordErr ="";
+            }
         }
     }
 }
@@ -84,6 +92,11 @@ include './framework/bootstrap.php'
             <input type="submit" class="col mx-5 mt-4 btn btn-primary" name="submit">
         </div>
     </form>
+    <div>
+        <h1>Your Input</h1>
+        <h5>Email: <?= $email ?></h5>
+        <h5>Password: <?= $password ?></h5>
+    </div>
 </body>
 
 </html>
