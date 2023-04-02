@@ -1,7 +1,7 @@
 <?php
 
 /* $SERVER adalah sebuah super global 
-    variable yang menyimpan informasi header, path dan lokasi script 
+variable yang menyimpan informasi seperti header, path ,lokasi script dll
 */
 
 $servers = array();
@@ -9,7 +9,7 @@ $servers = array();
 $servers['lokasi_project'] = $_SERVER['PHP_SELF'];
 $servers['nama_server'] = $_SERVER['SERVER_NAME'];
 $servers['user_agent_http'] = $_SERVER['HTTP_USER_AGENT'];
-$servers['ip_addr']  = $_SERVER['SERVER_ADDR'];
+$servers['ip_addr'] = $_SERVER['SERVER_ADDR'];
 $servers['metode_request'] = $_SERVER['REQUEST_METHOD'];
 $servers['port_server'] = $_SERVER['SERVER_PORT'];
 
