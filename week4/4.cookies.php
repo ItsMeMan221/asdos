@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $rememberMe = $_POST['rememberMe'];
 
         if ($rememberMe == "1") {
-            $cookiesEmail  = $email;
+            $cookiesEmail = $email;
             $cookiesPassword = $password;
             $cookiesRemember = $rememberMe;
             setcookie("email", $cookiesEmail, time() + (86400 * 30), "/");
@@ -40,13 +40,14 @@ include './framework/bootstrap.php';
                 <div class="col-sm-8">
                     <?php
                     if (isset($_COOKIE['email'])) {
-                    ?>
-                        <input type="text" class="form-control" id="email" placeholder="Input your email" name="email" value="<?= $_COOKIE['email'] ?>">
-                    <?php
+                        ?>
+                        <input type="text" class="form-control" id="email" placeholder="Input your email" name="email"
+                            value="<?= $_COOKIE['email'] ?>">
+                        <?php
                     } else {
-                    ?>
+                        ?>
                         <input type="text" class="form-control" id="email" placeholder="Input your email" name="email">
-                    <?php
+                        <?php
                     }
                     ?>
                 </div>
@@ -56,13 +57,15 @@ include './framework/bootstrap.php';
                 <div class="col-sm-8">
                     <?php
                     if (isset($_COOKIE['password'])) {
-                    ?>
-                        <input type="password" class="form-control" id="password" placeholder="Input your password" name="password" value="<?= $_COOKIE['password'] ?>">
-                    <?php
+                        ?>
+                        <input type="password" class="form-control" id="password" placeholder="Input your password"
+                            name="password" value="<?= $_COOKIE['password'] ?>">
+                        <?php
                     } else {
-                    ?>
-                        <input type="password" class="form-control" id="password" placeholder="Input your password" name="password">
-                    <?php
+                        ?>
+                        <input type="password" class="form-control" id="password" placeholder="Input your password"
+                            name="password">
+                        <?php
                     }
                     ?>
 
@@ -72,13 +75,13 @@ include './framework/bootstrap.php';
                 <div class="form-check">
                     <?php
                     if (isset($_COOKIE['isRemember']) == '1') {
-                    ?>
+                        ?>
                         <input class="form-check-input" type="checkbox" value="1" id="checkbox" name="rememberMe" checked>
-                    <?php
+                        <?php
                     } else {
-                    ?>
+                        ?>
                         <input class="form-check-input" type="checkbox" value="1" id="checkbox" name="rememberMe">
-                    <?php
+                        <?php
                     }
                     ?>
 

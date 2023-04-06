@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         if ($_FILES['uploadFile']['size'] > 500000) {
             $uploadOK = 0;
-            $err  = "File was too large";
+            $err = "File was too large";
         }
         if ($uploadOK == 1) {
             try {
@@ -86,8 +86,8 @@ include './framework/bootstrap.php';
 
 </html>
 <script>
-    $(document).ready(function() {
-        $('#uploadFile').on('change', function() {
+    $(document).ready(function () {
+        $('#uploadFile').on('change', function () {
             const file = document.getElementById("uploadFile").files[0];
             const image = URL.createObjectURL(file);
             $('#prev-img').attr('src', image);

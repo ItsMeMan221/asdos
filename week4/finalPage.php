@@ -33,13 +33,19 @@ include './framework/bootstrap.php';
     </form>
     <?php
     if (count($_SESSION) > 0) {
-    ?>
+        ?>
         <div class="container">
-            <h5>Id: <span><?= $_SESSION['id'] ?></span></h5>
-            <h5>Email: <span><?= $_SESSION['email'] ?></span></h5>
-            <h5>Password: <span><?= $_SESSION['password'] ?></span></h5>
+            <h5>Id: <span>
+                    <?= $_SESSION['id'] ?>
+                </span></h5>
+            <h5>Email: <span>
+                    <?= $_SESSION['email'] ?>
+                </span></h5>
+            <h5>Password: <span>
+                    <?= $_SESSION['password'] ?>
+                </span></h5>
         </div>
-    <?php
+        <?php
     }
     ?>
 </body>

@@ -37,7 +37,8 @@ include './framework/bootstrap.php';
             <div class="row mb-3 mt-5">
                 <label for="email" class="col-sm-2 col-form-label">Password</label>
                 <div class="col-sm-8">
-                    <input type="password" class="form-control" id="password" placeholder="Input your password" name="password">
+                    <input type="password" class="form-control" id="password" placeholder="Input your password"
+                        name="password">
                 </div>
             </div>
             <div class="row mb-3 mt-5">
