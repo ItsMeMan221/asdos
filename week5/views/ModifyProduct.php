@@ -6,7 +6,18 @@ $productErr = $brandErr = $releaseYearErr = $priceErr =  $fileErr = "";
 $isValid = 1;
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
+    if ((isset($_GET['id']) && is_uploaded_file($_FILES['productImage']['tmp_name'])) || !isset($_GET['id'])) {
 
+        $rand_name = md5(uniqid(mt_rand(), true));
+
+        $org_name = $save_dir . basename($_FILES["productImage"]["name"]);
+
+        $file_type = strtolower(pathinfo($org_name, PATHINFO_EXTENSION));
+
+        $rand_name .= "." . $file_type;
+
+        $target_file = $save_dir . $rand_name;
+    }
     if (isset($_POST['submit'])) {
 
         // Product Name Validation
@@ -43,22 +54,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // File Validation 
 
-        if (!is_uploaded_file($_FILES['productImage']['tmp_name'])) {
-            $isValid = 0;
-            $fileErr = "Mohon upload gambar produk";
-        } else {
-            $save_dir = 'uploads/';
-
-            $rand_name = md5(uniqid(mt_rand(), true));
-
-            $org_name = $save_dir . basename($_FILES["productImage"]["name"]);
-
-            $file_type = strtolower(pathinfo($org_name, PATHINFO_EXTENSION));
-
-            $rand_name .= "." . $file_type;
-
-            $target_file = $save_dir . $rand_name;
-
+        if (!isset($_GET['id'])) {
+            if (!is_uploaded_file($_FILES['productImage']['tmp_name'])) {
+                $isValid = 0;
+                $fileErr = "Mohon upload gambar produk";
+            } else {
+                if (getimagesize($_FILES['productImage']['tmp_name']) === false) {
+                    $isValid = 0;
+                    $fileErr = "File tidak dalam bentuk image";
+                }
+            }
+        } else if (isset($_GET['id']) && is_uploaded_file($_FILES['productImage']['tmp_name'])) {
             if (getimagesize($_FILES['productImage']['tmp_name']) === false) {
                 $isValid = 0;
                 $fileErr = "File tidak dalam bentuk image";
