@@ -1,5 +1,5 @@
 <?php
-// require_once './config/dbcon.php';
+require_once './config/dbcon.php';
 require_once './functions/cleaner.php';
 
 // Initialize all variable
@@ -23,6 +23,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $isValid = 0;
             } else {
                 // TODO 1: Check if email is exist or not
+                $queryCheckEmail = $conn->prepare("SELECT email FROM users WHERE email = ?");
+                $queryCheckEmail->bind_param("s", $email);
+                $queryCheckEmail->execute();
+                $resCheckEmail = $queryCheckEmail->get_result();
+                $numCheckEmail = $resCheckEmail->num_rows;
+                if ($numCheckEmail > 0) {
+                    $isValid = 0;
+                    $emailErr = "Email already exist";
+                }
             }
         }
 
@@ -52,8 +61,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Bila Valid 
         if ($isValid == 1) {
-            $passHash  = password_hash($password, PASSWORD_BCRYPT);
+            $passHash = password_hash($password, PASSWORD_BCRYPT);
             // TODO 2 : Insert to database
+            $queryRegister = $conn->prepare("INSERT INTO users(email, username, password) 
+                                    VALUES (?, ?, ?)");
+            $queryRegister->bind_param("sss", $email, $username, $passHash);
+            if ($queryRegister->execute()) {
+                header("Location: ./index.php");
+            } else {
+                echo "<script>alert('Regristrasi gagal')</script>";
+            }
         }
     }
 }
@@ -86,26 +103,36 @@ include './framework/sweetalert.php';
                                         <div class="row mb-3">
                                             <label for="email" class="col-sm-2 col-form-label">Email</label>
                                             <div class="col-sm-10">
-                                                <input type="text" name="email" id="email" class="form-control form-control-lg" value="<?= $email ?>" />
-                                                <small class="text-danger" id="emailError"><?= $emailErr ?></small>
+                                                <input type="text" name="email" id="email"
+                                                    class="form-control form-control-lg" value="<?= $email ?>" />
+                                                <small class="text-danger" id="emailError">
+                                                    <?= $emailErr ?>
+                                                </small>
                                             </div>
                                         </div>
                                         <div class="row mb-3 mt-5">
                                             <label for="username" class="col-sm-2 col-form-label">Username</label>
                                             <div class="col-sm-10">
-                                                <input type="text" name="username" id="username" class="form-control form-control-lg" value="<?= $username ?>" />
-                                                <small class="text-danger" id="usernameError"><?= $usernameErr ?></small>
+                                                <input type="text" name="username" id="username"
+                                                    class="form-control form-control-lg" value="<?= $username ?>" />
+                                                <small class="text-danger" id="usernameError">
+                                                    <?= $usernameErr ?>
+                                                </small>
                                             </div>
                                         </div>
                                         <div class="row mb-3 mt-5">
                                             <label for="password" class="col-sm-2 col-form-label">Password</label>
                                             <div class="col-sm-10">
-                                                <input type="password" name="password" id="password" class="form-control form-control-lg" value="<?= $password ?>" />
-                                                <small class="text-danger" id="passwordError"><?= $passwordErr ?></small>
+                                                <input type="password" name="password" id="password"
+                                                    class="form-control form-control-lg" value="<?= $password ?>" />
+                                                <small class="text-danger" id="passwordError">
+                                                    <?= $passwordErr ?>
+                                                </small>
                                             </div>
                                         </div>
                                         <div class="d-flex justify-content-end pt-3 mt-5">
-                                            <button type="submit" class="btn btn-success btn-lg ms-2 col-md-3" id="btn-kirim" name="signUp">Sign Up</button>
+                                            <button type="submit" class="btn btn-success btn-lg ms-2 col-md-3"
+                                                id="btn-kirim" name="signUp">Sign Up</button>
                                         </div>
                                     </form>
                                 </div>

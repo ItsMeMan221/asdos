@@ -2,7 +2,7 @@
 $serverName = "localhost";
 $username = "root";
 $password = "";
-$database = "TBA";
+$database = "inventory_system";
 
 // Membuat Koneksi 
 $conn = new mysqli($serverName, $username, $password, $database);

@@ -6,6 +6,8 @@ if (isset($_GET['page'])) {
         include './views/dashboard.php';
     } else if ($_GET['page'] === 'product') {
         include './views/ModifyProduct.php';
+    } else if ($_GET['page'] === 'delete') {
+        include './views/deleteProduct.php';
     }
 } else {
     include './views/login.php';

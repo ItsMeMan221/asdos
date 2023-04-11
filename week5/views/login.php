@@ -1,6 +1,6 @@
 <?php
 session_start();
-// require_once './config/dbcon.php';
+require_once './config/dbcon.php';
 require_once './functions/cleaner.php';
 $email = $password = "";
 $emailErr = $passwordErr = "";
@@ -21,6 +21,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($isValid == 1) {
         // TODO 1 : Bila validasi berhasil maka mulai proses login
+        $queryLogin = $conn->prepare("SELECT * FROM users WHERE email = ?");
+        $queryLogin->bind_param("s", $email);
+        $queryLogin->execute();
+        $resQueryLogin = $queryLogin->get_result();
+        $numQueryLogin = $resQueryLogin->num_rows;
+
+        if ($numQueryLogin > 0) {
+            $dataLogin = $resQueryLogin->fetch_assoc();
+            $verifPassword = password_verify($password, $dataLogin['password']);
+
+            if ($verifPassword) {
+                header("Location: ./index.php?page=dashboard");
+            } else {
+                echo "<script>alert('Credential salah, gagal login')</script>";
+            }
+        } else {
+            echo "<script>alert('Email belum terdaftar')</script>";
+        }
     }
 }
 
@@ -44,24 +62,30 @@ include './framework/sweetalert.php';
                             <div class="mb-md-5 mt-md-4 pb-5">
 
                                 <h2 class="fw-bold mb-2 text-uppercase">Login Page</h2>
-                                <p class="text-dark-50 mb-5 text-a mt-3">Welcome to <span class="text-bold">TechX </span>please enter your <span class="text-bold">email</span> along with your <span class="text-bold">Password </span>!</p>
+                                <p class="text-dark-50 mb-5 text-a mt-3">Welcome to <span class="text-bold">TechX
+                                    </span>please enter your <span class="text-bold">email</span> along with your <span
+                                        class="text-bold">Password </span>!</p>
                                 <form method="POST" id="loginForm">
                                     <div class="form-outline form-dark mb-4">
                                         <label class="form-label" for="email">Email Address</label>
-                                        <input type="text" name="email" id="email" class="form-control form-control-lg" />
+                                        <input type="text" name="email" id="email"
+                                            class="form-control form-control-lg" />
                                         <small class="text-danger ml-5" id="emailError"></small>
 
                                     </div>
                                     <div class="form-outline form-white mb-4">
                                         <label class="form-label" for="password">Password</label>
-                                        <input type="password" id="password" name="password" class="form-control form-control-lg" />
+                                        <input type="password" id="password" name="password"
+                                            class="form-control form-control-lg" />
                                         <small class="text-danger ml-5" id="passError"></small>
                                     </div>
-                                    <button type="submit" name="login" class="btn btn-outline-dark btn-lg px-5" value="Submit">LOG-IN</button>
+                                    <button type="submit" name="login" class="btn btn-outline-dark btn-lg px-5"
+                                        value="Submit">LOG-IN</button>
                                 </form>
                             </div>
                             <div>
-                                <p class="mb-0">Don't have an account? <a href="index.php?page=register" class="text-dark-50 fw-bold">Sign Up</a>
+                                <p class="mb-0">Don't have an account? <a href="index.php?page=register"
+                                        class="text-dark-50 fw-bold">Sign Up</a>
                                 </p>
                             </div>
 
