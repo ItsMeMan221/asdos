@@ -4,8 +4,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     // $email = $_REQUEST['email'];
     // $password = $_REQUEST['password'];
 
-    /* 
-    Untuk mendapatkan user input melalui post method dapat digunakan 
+    /*
+    Untuk mendapatkan user input melalui post method dapat digunakan
     keyword $_POST
     */
     $email = $_POST['email'];
