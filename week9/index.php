@@ -53,8 +53,6 @@
 
             var formData = new FormData($(this)[0]);
 
-            console.log(formData.get('email'))
-
             let formEl = $(this);
             formEl.find(':submit').attr('disabled', true);
 
