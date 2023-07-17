@@ -1,0 +1,5 @@
+Options +FollowSymLinks
+RewriteEngine on
+RewriteCond %{SCRIPT_FILENAME} !-d
+RewriteCond %{SCRIPT_FILENAME} !-f
+RewriteRule ^news/([0-9]+)/([A-Za-z]+(-[A-Za-z]+)+)$ item_berita.php?id=$1&title=$2 [L]
